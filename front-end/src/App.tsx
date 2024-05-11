@@ -1,35 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.scss";
+import Movie from "./Component/Movie/Movie";
+import MovieList from "./Component/MovieList/MovieList";
+import MovieType from "./types/MovieType";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [movieArray, setMovieArray] = useState<MovieType[]>([{ id: 12, Title: "runaway", Released: "2023", Genre: ["DragonBallZ"], Director: "vanderbuilt" }]);
+
+  // pass in random object to populate the two compontents
+
+  // change this to get movies
+  const getMovies = async () => {
+    let url = "http://localhost:8080/movie";
+
+    const response = await fetch(url);
+    const movieData = await response.json();
+    setMovieArray(movieData);
+  };
+
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <MovieList movieArray={movieArray} />
+      <Movie movie={movieArray[0]} />
+    </div>
+  );
 }
 
-export default App
+export default App;
