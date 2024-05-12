@@ -1,4 +1,5 @@
 import "./App.scss";
+import Nav from "./Component/Nav/Nav";
 import Movie from "./Component/Movie/Movie";
 import MovieList from "./Component/MovieList/MovieList";
 import MovieType from "./types/MovieType";
@@ -15,6 +16,7 @@ function App() {
 
     const response = await fetch(url);
     const movieData = await response.json();
+    console.log(movieData);
     setMovieArray(movieData);
   };
 
@@ -24,6 +26,7 @@ function App() {
 
   return (
     <div>
+      <Nav />
       <MovieList movieArray={movieArray} />
       <Movie movie={movieArray[0]} />
     </div>
