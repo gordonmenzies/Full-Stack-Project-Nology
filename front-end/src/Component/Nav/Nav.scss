@@ -1,0 +1,23 @@
+@use "../../styles/variables" as *;
+
+.Nav {
+  margin: 0 auto;
+  padding: 10px;
+  background-color: $primary-color;
+  color: $color-white;
+  border-radius: 5px;
+
+  &__box {
+    display: flex;
+    font-size: 10px;
+    flex-direction: row;
+    margin: 0;
+    color: $color-white;
+  }
+
+  &__item {
+    font-size: 20px;
+    font-weight: lighter;
+    color: $color-white;
+  }
+}

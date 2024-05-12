@@ -1,41 +1,45 @@
 package com.example.API;
 
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Entity
-@Table(name = "MOVIE")
+@CrossOrigin(origins = "http://localhost:5173")
+@Table(name = "frontend")
 public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //private final String id;
+    private final int id;
 
-
-    private final String description;
-
-    private final int rating;
+    private final String title;
+    private final String year;
+    private final String[] genres;
 
     public Movie() {
-        //this.id = "-1";
-        this.description = "no description";
-        this.rating = 0;
+        this.id = -1;
+        this.title = "no description";
+        this.year = "0000";
+        this.genres = null;
     }
 
-    public Movie(final String description, final int rating) {
-        this.description = description;
-        this.rating = rating;
+    public Movie(int id, final String title, String year, final String[] genres) {
+        this.id = id;
+        this.title = title;
+        this.year = year;
+        this.genres = genres;
     }
 
 //    public String getId() {
 //        //return id;
 //    }
 
-    public String getDescription() {
-        return description;
+    public String getTitle() {
+        return title;
     }
 
-    public int getRating() {
-        return rating;
+    public String getYear() {
+        return year;
     }
 
 //    @Override
