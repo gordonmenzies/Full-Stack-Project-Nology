@@ -14,13 +14,12 @@ type MovieProp = {
 
 const Movie = ({ movie: movieObject }: MovieProp) => {
   //const { id, Title, Year, Rated, Released, Runtime, Genre, Director, Writer, Actors, Plot, Language, Country, Awards, Poster, Metascore, imdbRating, imdbVotes, imdbID, Type, Response, Images } = movieObject;
-  const { Title, Released, Genre, Director } = movieObject;
+  const { Title, Released, Genre } = movieObject;
   return (
     <div className="movie">
       <h3 className="movie__title">{Title}</h3>
-      <p className="greeting__text">Year of Release: {Released}</p>
-      <p className="greeting__text">Genre: {Genre}</p>
-      <p className="greeting__text">Director: {Director}</p>
+      <p className="movie__text">Year of Release: {Released}</p>
+      <p className="movie__text">Genre: {Genre}</p>
       <p>teenybopper</p>
     </div>
   );
