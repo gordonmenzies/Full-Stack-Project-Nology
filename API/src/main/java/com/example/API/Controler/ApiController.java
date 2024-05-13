@@ -2,6 +2,7 @@ package com.example.API.Controler;
 
 import com.example.API.Movie;
 import com.example.API.Service.ApiService;
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,11 @@ public class ApiController {
     }
 
     // UPDATE
+    @PutMapping("/movie/{id}")
+    public ResponseEntity<Movie> updatedMovie(@RequestBody Movie newMovie, @PathVariable long id) {
+        Movie updatedMovie = apiService.updateMovie(newMovie,id);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
+    }
 
     //DELETE
 

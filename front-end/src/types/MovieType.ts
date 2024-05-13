@@ -1,12 +1,12 @@
 type MovieType = {
   id: number;
-  Title: string;
+  title: string;
   // Year: number,
   // Rated: string,
-  Released: string;
+  year: string;
   // Runtime: string,
-  Genre: string[];
-  Director: string;
+  genre: string[];
+  director: string;
   // Writer: string,
   // Actors: string,
   // Plot: string,
