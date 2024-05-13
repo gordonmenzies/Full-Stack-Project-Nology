@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class ApiController {
 
     @Autowired
@@ -19,7 +20,7 @@ public class ApiController {
 
     @PostMapping("/addmovie")
     public ResponseEntity<Movie> postDetails(@RequestBody Movie movie) {
-        System.out.println(movie);
+        System.out.println(movie.getGenre());
         Movie newMovie = apiService.saveDetails(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(newMovie);
     }
@@ -35,15 +36,18 @@ public class ApiController {
     public ResponseEntity<Movie> getProductById(@PathVariable final String id) {
 //        System.out.println(id);
 //        return new Movie("return a single product", 7);
-        return ResponseEntity.status(HttpStatus.OK).body(apiService.getMovieById(id));
+        return ResponseEntity.status(HttpStatus.OK).body(apiService.getMovieById(Long.parseLong(id)));
     }
-
 
     // UPDATE
 
     //DELETE
 
-
+    @DeleteMapping("/movie/{id}")
+    public ResponseEntity<Void> deleteGreetingById(@PathVariable long id) {
+        apiService.deleteMovieById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 
 //    @PostMapping("/movie")
 //    public ResponseEntity<Movie> createMovie(@RequestBody final Movie movie) {
