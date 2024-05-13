@@ -8,6 +8,7 @@ const Nav = () => {
         <h1 className="Nav__item">Lists</h1>
         <h1 className="Nav__item">Random Selection</h1>
         <h1 className="Nav__item">Things To Think About</h1>
+        <h1 className="Nav__item">Add Movie</h1>
       </div>
     </div>
   );
