@@ -1,27 +1,127 @@
 import MovieType from "../../types/MovieType";
+import AddMovie from "../AddMovie/AddMovie";
+import { useState } from "react";
 import "./Movie.scss";
-
-// SHOULD DISPLAY INFORMATION RECIEVED FROM THE API CALL
-// THINK ABOUT HOW TO STRCTURE THAT
-// PROBABLY A BOX WITH DIFFERENT LINES
-// MAYBE ROOM FOR AN IMAGE
-
-// YOU REALLY NEED TO THINK ABOUT DATA STRUCTURE HERE
 
 type MovieProp = {
   movie: MovieType;
 };
 
+//AddMovie NEEDS TO RECEIVE A PROP MOVIE
+
 const Movie = ({ movie: movieObject }: MovieProp) => {
-  //const { id, Title, Year, Rated, Released, Runtime, Genre, Director, Writer, Actors, Plot, Language, Country, Awards, Poster, Metascore, imdbRating, imdbVotes, imdbID, Type, Response, Images } = movieObject;
-  const { title, year, genre, director, personalRating, runTime } = movieObject;
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState<MovieType>({
+    id: movieObject.id,
+    title: movieObject.title,
+    director: movieObject.director,
+    genre: movieObject.genre,
+    year: movieObject.year,
+    personalRating: movieObject.personalRating,
+    runTime: movieObject.runTime,
+  });
+
+  const handleDelete = () => {
+    deleteMovie(movieObject.id);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(JSON.stringify(movieObject));
+    updateMovie();
+    setShowForm(showForm);
+  };
+
+  // currently this does not give or take data from add movie which it needs to
+  const updateMovie = async () => {
+    let url = `http://localhost:8080/movie/${formData.id}`;
+
+    const result = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (result.ok) {
+      alert("Movie updated");
+      const updated = await result.json();
+      setShowForm(updated);
+    } else {
+      const message = await result.text();
+      alert(message);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const deleteMovie = async (id: number) => {
+    let url = `http://localhost:8080/movie/${id}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+    console.log(id);
+    console.log(response.json);
+  };
+
+  const handleUpdate = async () => {
+    setShowForm(!showForm);
+  };
+
+  // pass movie object down to add movie, recieve updated movie object back
+  // movie object needs access to
+
   return (
     <div className="movie">
-      <h3 className="movie__text">{title}</h3>
-      <p className="movie__text">Year of Release: {year}</p>
-      <p className="movie__text">Genre: {genre}</p>
-      <p className="movie__text">Director: {director}</p>
-      <p>teenybopper</p>
+      {!showForm ? (
+        <div className="movie__details">
+          <h3 className="movie__text">{movieObject.title}</h3>
+          <p className="movie__text">Year of Release: {movieObject.year}</p>
+          <p className="movie__text">Genre: {movieObject.genre}</p>
+          <p className="movie__text">Director: {movieObject.director}</p>
+          <button onClick={handleDelete}>Delete</button>
+          <button onClick={handleUpdate}>Update</button>
+        </div>
+      ) : (
+        <div className="movie__details">
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Title:</label>
+              <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+            </div>
+            <div>
+              <label>Director:</label>
+              <input type="text" name="director" value={formData.director} onChange={handleChange} required />
+            </div>
+            <div>
+              <label>Genre:</label>
+              <input type="text" name="genre" value={formData.genre} onChange={handleChange} required />
+            </div>
+            <div>
+              <label>Year:</label>
+              <input type="text" name="year" value={formData.year} onChange={handleChange} required />
+            </div>
+            <div>
+              <label>Personal Rating:</label>
+              <input type="text" name="personalRating" value={formData.personalRating} onChange={handleChange} required />
+            </div>
+            <div>
+              <label>Run Time:</label>
+              <input type="text" name="runTime" value={formData.runTime} onChange={handleChange} required />
+            </div>
+            <button type="submit">Submit Change</button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };
