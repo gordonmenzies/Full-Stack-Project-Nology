@@ -31,6 +31,53 @@ const AllMovies = () => {
     console.log(movieArray);
   };
 
+  const handleDelete = () => {
+    deleteMovie(movieObject.id);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(JSON.stringify(movieObject));
+    updateMovie();
+    console.log("reached");
+  };
+
+  // currently this does not give or take data from add movie which it needs to
+  const updateMovie = async () => {
+    let url = `http://localhost:8080/movie/${formData.id}`;
+
+    const result = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (result.ok) {
+      alert("Movie updated");
+      const updated = await result.json();
+      setShowForm(false);
+    } else {
+      const message = await result.text();
+      alert(message);
+    }
+  };
+
+  const deleteMovie = async (id: number) => {
+    let url = `http://localhost:8080/movie/${id}`;
+
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+    console.log(id);
+    console.log(response.json);
+  };
+
+  const handleUpdate = async () => {
+    setShowForm(!showForm);
+  };
+
   useEffect(() => {
     getMovies();
   }, []);
