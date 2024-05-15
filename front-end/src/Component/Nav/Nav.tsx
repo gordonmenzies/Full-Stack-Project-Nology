@@ -1,13 +1,28 @@
 import "./Nav.scss";
+import { Link } from "react-router-dom";
 
 const Nav = () => {
   return (
     <div className="Nav">
-      <h1 className="Nav__item">Find Me Something To Watch</h1>
+      <Link className="Nav__title" to="/">
+        Find Me Something To Watch
+      </Link>
       <div className="Nav__box">
-        <h1 className="Nav__item">Lists</h1>
-        <h1 className="Nav__item">Random Selection</h1>
-        <h1 className="Nav__item">Things To Think About</h1>
+        <Link className="Nav__item" to="/lists">
+          Lists
+        </Link>
+
+        <Link className="Nav__item" to="/randomselection">
+          Random Selection
+        </Link>
+
+        <Link className="Nav__item" to="/allmovies">
+          All Movies
+        </Link>
+
+        <Link className="Nav__item" to="/addmovie">
+          Add Movie
+        </Link>
       </div>
     </div>
   );

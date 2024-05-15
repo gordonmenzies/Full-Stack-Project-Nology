@@ -9,10 +9,9 @@ type MovieListProps = {
 const MovieList = ({ movieArray }: MovieListProps) => {
   return (
     <div className="movie-list">
-      {/* {movieArray.map((movie) => (
-        <Movie movie={movie} />
-      ))} */}
-      <p>sugarplum</p>
+      {movieArray.map((movie) => (
+        <Movie movie={movie} key={movie.id} />
+      ))}
     </div>
   );
 };

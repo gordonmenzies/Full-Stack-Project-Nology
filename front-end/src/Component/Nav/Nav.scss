@@ -1,6 +1,7 @@
 @use "../../styles/variables" as *;
 
 .Nav {
+  text-align: center;
   margin: 0 auto;
   padding: 10px;
   background-color: $primary-color;
@@ -16,8 +17,17 @@
   }
 
   &__item {
+    margin-left: 12%;
     font-size: 20px;
     font-weight: lighter;
-    color: $color-white;
+    color: white;
+    text-decoration: none;
+  }
+
+  &__title {
+    font-size: 20px;
+    font-weight: lighter;
+    color: white;
+    text-decoration: none;
   }
 }
