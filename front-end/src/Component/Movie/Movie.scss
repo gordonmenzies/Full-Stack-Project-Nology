@@ -20,4 +20,13 @@
     font-weight: lighter;
     color: $color-white;
   }
+
+  &__buttonContainer {
+    align-content: center;
+  }
+
+  &__button {
+    width: 25%;
+    font-size: 10px;
+  }
 }

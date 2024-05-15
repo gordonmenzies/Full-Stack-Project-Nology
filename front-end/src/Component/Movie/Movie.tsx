@@ -29,7 +29,7 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
     e.preventDefault();
     console.log(JSON.stringify(movieObject));
     updateMovie();
-    setShowForm(showForm);
+    console.log("reached");
   };
 
   // currently this does not give or take data from add movie which it needs to
@@ -47,7 +47,7 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
     if (result.ok) {
       alert("Movie updated");
       const updated = await result.json();
-      setShowForm(updated);
+      setShowForm(false);
     } else {
       const message = await result.text();
       alert(message);
@@ -88,8 +88,14 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
           <p className="movie__text">Year of Release: {movieObject.year}</p>
           <p className="movie__text">Genre: {movieObject.genre}</p>
           <p className="movie__text">Director: {movieObject.director}</p>
-          <button onClick={handleDelete}>Delete</button>
-          <button onClick={handleUpdate}>Update</button>
+          <div className="movie__buttonContainer">
+            <button className="movie__button" onClick={handleDelete}>
+              Delete
+            </button>
+            <button className="movie__button" onClick={handleUpdate}>
+              Update
+            </button>
+          </div>
         </div>
       ) : (
         <div className="movie__details">
@@ -118,7 +124,11 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
               <label>Run Time:</label>
               <input type="text" name="runTime" value={formData.runTime} onChange={handleChange} required />
             </div>
-            <button type="submit">Submit Change</button>
+            <div className="movie__buttonContainer">
+              <button className="movie__button" type="submit">
+                Submit Change
+              </button>
+            </div>
           </form>
         </div>
       )}

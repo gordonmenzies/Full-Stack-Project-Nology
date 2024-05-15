@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 const Nav = () => {
   return (
     <div className="Nav">
-      <h1 className="Nav__item">Find Me Something To Watch</h1>
+      <Link className="Nav__title" to="/">
+        Find Me Something To Watch
+      </Link>
       <div className="Nav__box">
         <Link className="Nav__item" to="/lists">
           Lists
@@ -14,8 +16,8 @@ const Nav = () => {
           Random Selection
         </Link>
 
-        <Link className="Nav__item" to="/">
-          Home
+        <Link className="Nav__item" to="/allmovies">
+          All Movies
         </Link>
 
         <Link className="Nav__item" to="/addmovie">
