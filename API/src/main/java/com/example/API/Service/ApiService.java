@@ -55,6 +55,7 @@ public class ApiService {
     // DELETE
     @Transactional
     public void deleteMovieById(long id) {
+
         Optional<Movie> movie = apiRepo.findById(Math.toIntExact(id));
 
         if (movie.isEmpty()) {
