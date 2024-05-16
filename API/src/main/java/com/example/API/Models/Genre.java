@@ -15,6 +15,14 @@ public class Genre {
 
     private String name;
 
+    public Genre() {
+        this.name = null;
+    }
+
+    public Genre(String name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

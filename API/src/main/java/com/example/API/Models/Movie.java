@@ -2,6 +2,7 @@ package com.example.API.Models;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "genres_id")
     )
     @Column(name = "genre_set")
-    private Set<Genre> genres;
+    private ArrayList<Genre> genres;
 
     private final String title;
     private final String director;
@@ -46,7 +47,7 @@ public class Movie {
                  int year,String genre,
                  String director,
                  int personalRating,
-                 int runTime, Set<Genre> genres) {
+                 int runTime, ArrayList<Genre> genres) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -89,13 +90,13 @@ public class Movie {
         return year;
     }
 
-    public Set<Genre> getGenres() {
+    public ArrayList<Genre> getGenres() {
         return genres;
     }
 
     // break down the genre string and turn them into individual items and add them to the hash set
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
+    public void setGenre(Genre genre) {
+        this.genres.add(genre);
     }
 
 //    @Override

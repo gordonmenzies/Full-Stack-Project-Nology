@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ApiService {
@@ -25,15 +22,20 @@ public class ApiService {
     private GenreRepo genreRepo;
 
     // POST
+    // saves movie and also saves and checks genres
     public Movie saveDetails(Movie movie) {
-        System.out.println("service " + movie);
         Movie newMovie = movieRepo.save(movie);
+        for (Genre genre : convertStringToGenres(movie.getGenre())) {
+            genreRepo.save(genre);
+            // it only gets the id once it enters the database therefor it can't be searched by id
+            //System.out.println(movieRepo.findById(newMovie.getId()));
+            //assignGenreToMovie(newMovie.getId(), genre.getId());
+        }
         return newMovie;
     }
 
     public Genre saveGenre(Genre genre) {
-        Genre newGenre = genreRepo.save(genre);
-                return newGenre;
+        return genreRepo.save(genre);
     }
 
     // READ
@@ -61,6 +63,10 @@ public class ApiService {
         return movieList.get(result);
     }
 
+    public List<Genre> getGenres() {
+        return genreRepo.findAll();
+    }
+
     // UPDATE
     @Modifying
     public Movie updateMovie(Movie newMovie, long id) {
@@ -73,12 +79,13 @@ public class ApiService {
     }
 
     public Movie assignGenreToMovie(Long movieId, long genreId) {
-        Set<Genre>genreSet = null;
+        System.out.println("reach 1");
         Movie movie = movieRepo.findById(movieId).get();
         Genre genre = genreRepo.findById(genreId).get();
-        genreSet = movie.getGenres();
-        genreSet.add(genre);
-        movie.setGenres(genreSet);
+        System.out.println("reach 2");
+        System.out.println("reach 3");
+        movie.setGenre(genre);
+        System.out.println("reach 4");
         return movieRepo.save(movie);
     }
 
@@ -94,4 +101,5 @@ public class ApiService {
 
         movieRepo.deleteMovieById(id);
     }
+
 }

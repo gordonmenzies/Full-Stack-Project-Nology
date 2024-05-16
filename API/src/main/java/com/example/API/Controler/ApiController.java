@@ -48,6 +48,11 @@ public class ApiController {
         return ResponseEntity.status(HttpStatus.OK).body(apiService.getRandomMovie());
     }
 
+    @GetMapping("/genres")
+    public ResponseEntity <List<Genre>> getGenres() {
+        return ResponseEntity.status(HttpStatus.OK).body(apiService.getGenres());
+    }
+
     // UPDATE
     @PutMapping("/movie/{id}")
     public ResponseEntity<Movie> updatedMovie(@RequestBody Movie newMovie, @PathVariable long id) {
