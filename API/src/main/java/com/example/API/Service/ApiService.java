@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import static java.lang.Integer.parseInt;
 
@@ -41,6 +42,16 @@ public class ApiService {
         return movie.get();
     }
 
+    public Movie getRandomMovie() {
+        List<Movie> movieList = apiRepo.findAll();
+        System.out.println("reached");
+        Random r = new Random();
+        int low = 0;
+        int high = movieList.size();
+        int result = r.nextInt(high-low) + low;
+        return movieList.get(result);
+    }
+
     // UPDATE
     @Modifying
     public Movie updateMovie(Movie newMovie, long id) {
@@ -55,6 +66,7 @@ public class ApiService {
     // DELETE
     @Transactional
     public void deleteMovieById(long id) {
+
         Optional<Movie> movie = apiRepo.findById(Math.toIntExact(id));
 
         if (movie.isEmpty()) {

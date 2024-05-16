@@ -5,6 +5,7 @@ import com.example.API.Service.ApiService;
 import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,22 +36,26 @@ public class ApiController {
 
     @GetMapping("/movie/{id}")
     public ResponseEntity<Movie> getProductById(@PathVariable final String id) {
-//        System.out.println(id);
-//        return new Movie("return a single product", 7);
         return ResponseEntity.status(HttpStatus.OK).body(apiService.getMovieById(Long.parseLong(id)));
+    }
+
+    @GetMapping("/movie/random")
+    public ResponseEntity<Movie> getRandomMovie() {
+        return ResponseEntity.status(HttpStatus.OK).body(apiService.getRandomMovie());
     }
 
     // UPDATE
     @PutMapping("/movie/{id}")
     public ResponseEntity<Movie> updatedMovie(@RequestBody Movie newMovie, @PathVariable long id) {
+        System.out.println("data recieved" + newMovie.toString());
         Movie updatedMovie = apiService.updateMovie(newMovie,id);
         return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
     }
 
     //DELETE
-
     @DeleteMapping("/movie/{id}")
     public ResponseEntity<Void> deleteGreetingById(@PathVariable long id) {
+        System.out.println("hamish deleted" + id);
         apiService.deleteMovieById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -63,5 +68,5 @@ public class ApiController {
 //        return ResponseEntity.status(HttpStatus.CREATED)
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .body(result);
-//    }
+
 }
