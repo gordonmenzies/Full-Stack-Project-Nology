@@ -1,26 +1,29 @@
 import MovieType from "../../types/MovieType";
-import AddMovie from "../AddMovie/AddMovie";
 import { useState } from "react";
 import "./Movie.scss";
 
 type MovieProp = {
   movie: MovieType;
-  handleSubmit(): React.FormEvent;
-  handleDelete(): void;
+  //onSubmit(formData: MovieType): void;
+  submitChange(formData: MovieType): void;
+  handleDelete(id: number): void;
 };
 
-//AddMovie NEEDS TO RECEIVE A PROP MOVIE
-
-const Movie = ({ movie: movieObject }: MovieProp) => {
+const Movie = ({
+  movie,
+  //onSubmit,
+  submitChange,
+  handleDelete,
+}: MovieProp) => {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState<MovieType>({
-    id: movieObject.id,
-    title: movieObject.title,
-    director: movieObject.director,
-    genre: movieObject.genre,
-    year: movieObject.year,
-    personalRating: movieObject.personalRating,
-    runTime: movieObject.runTime,
+    id: movie.id,
+    title: movie.title,
+    director: movie.director,
+    genre: movie.genre,
+    year: movie.year,
+    personalRating: movie.personalRating,
+    runTime: movie.runTime,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,19 +35,27 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
     });
   };
 
-  // pass movie object down to add movie, recieve updated movie object back
-  // movie object needs access to
+  const handleUpdate = async () => {
+    setShowForm(!showForm);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+    console.log("wagwan");
+    e.preventDefault();
+    submitChange(formData);
+    setShowForm(false);
+  };
 
   return (
     <div className="movie">
       {!showForm ? (
         <div className="movie__details">
-          <h3 className="movie__text">{movieObject.title}</h3>
-          <p className="movie__text">Year of Release: {movieObject.year}</p>
-          <p className="movie__text">Genre: {movieObject.genre}</p>
-          <p className="movie__text">Director: {movieObject.director}</p>
+          <h3 className="movie__text">{movie.title}</h3>
+          <p className="movie__text">Year of Release: {movie.year}</p>
+          <p className="movie__text">Genre: {movie.genre}</p>
+          <p className="movie__text">Director: {movie.director}</p>
           <div className="movie__buttonContainer">
-            <button className="movie__button" onClick={handleDelete}>
+            <button className="movie__button" onClick={() => handleDelete(movie.id)}>
               Delete
             </button>
             <button className="movie__button" onClick={handleUpdate}>
@@ -54,37 +65,37 @@ const Movie = ({ movie: movieObject }: MovieProp) => {
         </div>
       ) : (
         <div className="movie__details">
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Title:</label>
-              <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-            </div>
-            <div>
-              <label>Director:</label>
-              <input type="text" name="director" value={formData.director} onChange={handleChange} required />
-            </div>
-            <div>
-              <label>Genre:</label>
-              <input type="text" name="genre" value={formData.genre} onChange={handleChange} required />
-            </div>
-            <div>
-              <label>Year:</label>
-              <input type="text" name="year" value={formData.year} onChange={handleChange} required />
-            </div>
-            <div>
-              <label>Personal Rating:</label>
-              <input type="text" name="personalRating" value={formData.personalRating} onChange={handleChange} required />
-            </div>
-            <div>
-              <label>Run Time:</label>
-              <input type="text" name="runTime" value={formData.runTime} onChange={handleChange} required />
-            </div>
-            <div className="movie__buttonContainer">
-              <button className="movie__button" type="submit">
-                Submit Change
-              </button>
-            </div>
-          </form>
+          {/* <form onSubmit={() => onSubmit(formData)}> */}
+          <div>
+            <label>Title:</label>
+            <input type="text" name="title" value={formData.title} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Director:</label>
+            <input type="text" name="director" value={formData.director} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Genre:</label>
+            <input type="text" name="genre" value={formData.genre} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Year:</label>
+            <input type="text" name="year" value={formData.year} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Personal Rating:</label>
+            <input type="text" name="personalRating" value={formData.personalRating} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Run Time:</label>
+            <input type="text" name="runTime" value={formData.runTime} onChange={handleChange} required />
+          </div>
+          <div className="movie__buttonContainer">
+            <button className="movie__button" onClick={handleSubmit}>
+              Submit Change
+            </button>
+          </div>
+          {/* </form> */}
         </div>
       )}
     </div>

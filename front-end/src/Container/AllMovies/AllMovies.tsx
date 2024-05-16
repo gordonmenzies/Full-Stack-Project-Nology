@@ -23,7 +23,7 @@ const AllMovies = () => {
       const movieData = await response.json();
       setMovieArray(movieData);
     } catch (error) {
-      setError(error.message);
+      // setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -31,21 +31,28 @@ const AllMovies = () => {
     console.log(movieArray);
   };
 
-  const handleDelete = () => {
-    deleteMovie(movieObject.id);
+  // needs to be passed down movie
+
+  const handleDelete = (id: number) => {
+    console.log(id);
+    // deleteMovie(id);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(JSON.stringify(movieObject));
-    updateMovie();
+  // needs to be passed down to movie
+
+  // const onSubmit = (formData: MovieType) => {
+  //   updateMovie(formData);
+  //   console.log("reached");
+  // };
+
+  const submitChange = (formData: MovieType) => {
+    updateMovie(formData);
     console.log("reached");
   };
 
-  // currently this does not give or take data from add movie which it needs to
-  const updateMovie = async () => {
+  const updateMovie = async (formData: MovieType) => {
     let url = `http://localhost:8080/movie/${formData.id}`;
-
+    console.log("formData", formData);
     const result = await fetch(url, {
       method: "PUT",
       headers: {
@@ -56,8 +63,6 @@ const AllMovies = () => {
 
     if (result.ok) {
       alert("Movie updated");
-      const updated = await result.json();
-      setShowForm(false);
     } else {
       const message = await result.text();
       alert(message);
@@ -70,12 +75,7 @@ const AllMovies = () => {
     const response = await fetch(url, {
       method: "DELETE",
     });
-    console.log(id);
     console.log(response.json);
-  };
-
-  const handleUpdate = async () => {
-    setShowForm(!showForm);
   };
 
   useEffect(() => {
@@ -84,7 +84,12 @@ const AllMovies = () => {
 
   return (
     <div className="homePage">
-      <MovieList movieArray={movieArray} />
+      <MovieList
+        movieArray={movieArray}
+        //onSubmit={onSubmit}
+        submitChange={submitChange}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };

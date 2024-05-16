@@ -15,7 +15,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/allmovies" element={<AllMovies movieArray={movieArray} />} />
+        <Route path="/allmovies" element={<AllMovies />} />
         <Route path="/addmovie" element={<AddMovie />} />
         <Route path="/lists" element={<Lists />} />
         <Route path="/randomselection" element={<RandomSelection />} />
