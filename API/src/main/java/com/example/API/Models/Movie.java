@@ -22,7 +22,7 @@ public class Movie {
             inverseJoinColumns = @JoinColumn(name = "genres_id")
     )
     @Column(name = "genre_set")
-    private ArrayList<Genre> genres;
+    private Set<Genre> genres;
 
     private final String title;
     private final String director;
@@ -47,7 +47,7 @@ public class Movie {
                  int year,String genre,
                  String director,
                  int personalRating,
-                 int runTime, ArrayList<Genre> genres) {
+                 int runTime, Set<Genre> genres) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -90,7 +90,7 @@ public class Movie {
         return year;
     }
 
-    public ArrayList<Genre> getGenres() {
+    public Set<Genre> getGenres() {
         return genres;
     }
 

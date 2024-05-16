@@ -25,12 +25,12 @@ public class ApiService {
     // saves movie and also saves and checks genres
     public Movie saveDetails(Movie movie) {
         Movie newMovie = movieRepo.save(movie);
-        for (Genre genre : convertStringToGenres(movie.getGenre())) {
-            genreRepo.save(genre);
+        //for (Genre genre : convertStringToGenres(movie.getGenre())) {
+          //  genreRepo.save(genre);
             // it only gets the id once it enters the database therefor it can't be searched by id
             //System.out.println(movieRepo.findById(newMovie.getId()));
             //assignGenreToMovie(newMovie.getId(), genre.getId());
-        }
+        //}
         return newMovie;
     }
 
@@ -101,5 +101,40 @@ public class ApiService {
 
         movieRepo.deleteMovieById(id);
     }
+
+
+
+    public List<Genre> convertStringToGenres(String genres) {
+        String[] words = genres.split(" ");
+        List<Genre> wordsToAdd = new ArrayList<>();
+
+
+        List<Genre> genreList = getGenres();
+
+
+        for(String word: words) {
+            if (containsStringInList(genreList,word)) {
+                wordsToAdd.add(new Genre(word));
+            }
+        }
+        for (Genre genre : wordsToAdd) {
+            System.out.println(genre.getName());
+        }
+
+
+        return wordsToAdd;
+    }
+
+
+    // this needs to be checked
+    public boolean containsStringInList(List<Genre> list, String searchString) {
+        for (Genre genre : list) {
+            if (genre.getName() != null &! genre.getName().contains(searchString)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
