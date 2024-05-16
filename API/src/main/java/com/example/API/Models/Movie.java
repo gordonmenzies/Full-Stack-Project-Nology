@@ -1,7 +1,9 @@
-package com.example.API;
+package com.example.API.Models;
 
 import jakarta.persistence.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "movie")
@@ -9,8 +11,17 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "movie_genres_link",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "genres_id")
+    )
+    @Column(name = "genre_set")
+    private Set<Genre> genres;
 
     private final String title;
     private final String director;
@@ -28,13 +39,14 @@ public class Movie {
         this.director = null;
         this.personalRating = 0;
         this.runTime = 200;
+        this.genres = null;
     }
 
     public Movie(long id,String title,
                  int year,String genre,
                  String director,
                  int personalRating,
-                 int runTime) {
+                 int runTime, Set<Genre> genres) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -42,6 +54,7 @@ public class Movie {
         this.director = director;
         this.personalRating = personalRating;
         this.runTime = runTime;
+        this.genres = genres;
     }
 
     public long getId() {
@@ -74,6 +87,15 @@ public class Movie {
 
     public int getYear() {
         return year;
+    }
+
+    public Set<Genre> getGenres() {
+        return genres;
+    }
+
+    // break down the genre string and turn them into individual items and add them to the hash set
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
     }
 
 //    @Override

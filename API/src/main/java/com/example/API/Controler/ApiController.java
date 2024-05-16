@@ -1,11 +1,10 @@
 package com.example.API.Controler;
 
-import com.example.API.Movie;
+import com.example.API.Models.Genre;
+import com.example.API.Models.Movie;
 import com.example.API.Service.ApiService;
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +21,14 @@ public class ApiController {
 
     @PostMapping("/addmovie")
     public ResponseEntity<Movie> postDetails(@RequestBody Movie movie) {
-        System.out.println(movie.getGenre());
         Movie newMovie = apiService.saveDetails(movie);
         return ResponseEntity.status(HttpStatus.CREATED).body(newMovie);
+    }
+
+    @PostMapping("/addgenre")
+    public ResponseEntity<Genre> postDetails(@RequestBody Genre genre) {
+        Genre newGenre = apiService.saveGenre(genre);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newGenre);
     }
 
     // READ
@@ -47,10 +51,18 @@ public class ApiController {
     // UPDATE
     @PutMapping("/movie/{id}")
     public ResponseEntity<Movie> updatedMovie(@RequestBody Movie newMovie, @PathVariable long id) {
-        System.out.println("data recieved" + newMovie.toString());
         Movie updatedMovie = apiService.updateMovie(newMovie,id);
         return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
     }
+
+    @PutMapping("/{movieId}/genre/{genreId}")
+    public ResponseEntity<Movie> assignGenreToMovie(@PathVariable Long movieId, @PathVariable Long genreId) {
+        Movie movieGenreAssociation = apiService.assignGenreToMovie(movieId, genreId);
+        Movie updatedMovie = apiService.getMovieById(movieId);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
+        }
+
+
 
     //DELETE
     @DeleteMapping("/movie/{id}")
