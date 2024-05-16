@@ -25,12 +25,12 @@ public class ApiService {
     // saves movie and also saves and checks genres
     public Movie saveDetails(Movie movie) {
         Movie newMovie = movieRepo.save(movie);
-        //for (Genre genre : convertStringToGenres(movie.getGenre())) {
-          //  genreRepo.save(genre);
+        for (Genre genre : convertStringToGenres(movie.getGenre())) {
+            genreRepo.save(genre);
             // it only gets the id once it enters the database therefor it can't be searched by id
-            //System.out.println(movieRepo.findById(newMovie.getId()));
-            //assignGenreToMovie(newMovie.getId(), genre.getId());
-        //}
+            System.out.println(movieRepo.findById(newMovie.getId()));
+            assignGenreToMovie(newMovie.getId(), genre.getId());
+        }
         return newMovie;
     }
 
@@ -78,16 +78,16 @@ public class ApiService {
         return newMovie;
     }
 
-//    public Movie assignGenreToMovie(Long movieId, long genreId) {
-//        System.out.println("reach 1");
-//        Movie movie = movieRepo.findById(movieId).get();
-//        Genre genre = genreRepo.findById(genreId).get();
-//        System.out.println("reach 2");
-//        System.out.println("reach 3");
-//        movie.setGenre(genre);
-//        System.out.println("reach 4");
-//        return movieRepo.save(movie);
-//    }
+    public Movie assignGenreToMovie(Long movieId, long genreId) {
+        System.out.println("reach 1");
+        Movie movie = movieRepo.findById(movieId).get();
+        Genre genre = genreRepo.findById(genreId).get();
+        System.out.println("reach 2");
+        System.out.println("reach 3");
+        movie.setGenreList(genre);
+        System.out.println("reach 4");
+        return movieRepo.save(movie);
+    }
 
     // DELETE
     @Transactional
@@ -104,24 +104,19 @@ public class ApiService {
 
 
 
-    public List<Genre> convertStringToGenres(String genres) {
-        String[] words = genres.split(" ");
+    public List<Genre> convertStringToGenres(String genre) {
         List<Genre> wordsToAdd = new ArrayList<>();
-
-
         List<Genre> genreList = getGenres();
 
+        if (genre != null) {
+            String[] words = genre.split(" ");
 
-        for(String word: words) {
-            if (containsStringInList(genreList,word)) {
-                wordsToAdd.add(new Genre(word));
+            for (String word : words) {
+                if (containsStringInList(genreList, word)) {
+                    wordsToAdd.add(new Genre(word));
+                }
             }
         }
-        for (Genre genre : wordsToAdd) {
-            System.out.println(genre.getName());
-        }
-
-
         return wordsToAdd;
     }
 

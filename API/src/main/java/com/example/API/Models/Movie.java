@@ -40,7 +40,7 @@ public class Movie {
         this.director = null;
         this.personalRating = 0;
         this.runTime = 200;
-        //this.genres = null;
+        this.genres = new HashSet<>();
     }
 
     public Movie(long id,String title,
@@ -55,7 +55,7 @@ public class Movie {
         this.director = director;
         this.personalRating = personalRating;
         this.runTime = runTime;
-        //this.genres = genres;
+        this.genres = new HashSet<>();
     }
 
     public long getId() {
@@ -90,14 +90,14 @@ public class Movie {
         return year;
     }
 
-    public Set<Genre> getGenres() {
+    public Set<Genre> getGenreList() {
         return genres;
     }
 
-    // break down the genre string and turn them into individual items and add them to the hash set
-//    public void setGenre(Genre genre) {
-//        this.genres.add(genre);
-//    }
+   //  break down the genre string and turn them into individual items and add them to the hash set
+    public void setGenreList(Genre genre) {
+        this.genres.add(genre);
+    }
 
 //    @Override
 //    public String toString() {
