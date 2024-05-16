@@ -2,8 +2,6 @@ import "./App.scss";
 import Nav from "./Component/Nav/Nav";
 import AddMovie from "./Container/AddMovie.tsx/AddMovie";
 import Lists from "./Container/Lists/Lists";
-import MovieType from "./types/MovieType";
-import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AllMovies from "./Container/AllMovies/AllMovies";
 import RandomSelection from "./Container/RandomSelection/RandomSelection";
@@ -25,16 +23,3 @@ function App() {
 }
 
 export default App;
-
-// // ADD MOVIE NEEDS TO RECEIVE A MOVIE AS A PROP
-// const emptyMovie: MovieType = {
-//   id: 999,
-//   title: ``,
-//   director: ``,
-//   genre: ``,
-//   year: ``,
-//   personalRating: ``,
-//   runTime: ``,
-// };
-
-// change this to get movies

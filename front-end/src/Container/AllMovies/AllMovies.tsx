@@ -9,8 +9,7 @@ type AllMovies = {
 
 const AllMovies = () => {
   const [movieArray, setMovieArray] = useState<MovieType[]>([]);
-  const [error, setError] = useState<Error>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [count, setCount] = useState<number>(0);
 
   const getMovies = async (): Promise<void> => {
     try {
@@ -23,31 +22,16 @@ const AllMovies = () => {
       const movieData = await response.json();
       setMovieArray(movieData);
     } catch (error) {
-      // setError(error.message);
     } finally {
-      setLoading(false);
     }
-
-    console.log(movieArray);
   };
-
-  // needs to be passed down movie
 
   const handleDelete = (id: number) => {
-    console.log(id);
-    // deleteMovie(id);
+    deleteMovie(id);
   };
-
-  // needs to be passed down to movie
-
-  // const onSubmit = (formData: MovieType) => {
-  //   updateMovie(formData);
-  //   console.log("reached");
-  // };
 
   const submitChange = (formData: MovieType) => {
     updateMovie(formData);
-    console.log("reached");
   };
 
   const updateMovie = async (formData: MovieType) => {
@@ -63,6 +47,7 @@ const AllMovies = () => {
 
     if (result.ok) {
       alert("Movie updated");
+      setCount(count + 1);
     } else {
       const message = await result.text();
       alert(message);
@@ -76,47 +61,19 @@ const AllMovies = () => {
       method: "DELETE",
     });
     console.log(response.json);
+    setCount(count + 1);
   };
 
   useEffect(() => {
+    console.log("run this");
     getMovies();
-  }, []);
+  }, [count]);
 
   return (
     <div className="homePage">
-      <MovieList
-        movieArray={movieArray}
-        //onSubmit={onSubmit}
-        submitChange={submitChange}
-        handleDelete={handleDelete}
-      />
+      <MovieList movieArray={movieArray} submitChange={submitChange} handleDelete={handleDelete} />
     </div>
   );
 };
 
 export default AllMovies;
-
-// // ADD MOVIE NEEDS TO RECEIVE A MOVIE AS A PROP
-// const emptyMovie: MovieType = {
-//   id: 999,
-//   title: ``,
-//   director: ``,
-//   genre: ``,
-//   year: ``,
-//   personalRating: ``,
-//   runTime: ``,
-// };
-
-// // // change this to get movies
-// // const getMovies = async () => {
-// //   let url = "http://localhost:8080/movie";
-
-// //   const response = await fetch(url);
-// //   const movieData = await response.json();
-// //   console.log(movieData);
-// //   setMovieArray(movieData);
-// // };
-
-// // useEffect(() => {
-// //   getMovies();
-// // }, []);

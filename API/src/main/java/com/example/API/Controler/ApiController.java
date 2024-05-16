@@ -36,9 +36,12 @@ public class ApiController {
 
     @GetMapping("/movie/{id}")
     public ResponseEntity<Movie> getProductById(@PathVariable final String id) {
-//        System.out.println(id);
-//        return new Movie("return a single product", 7);
         return ResponseEntity.status(HttpStatus.OK).body(apiService.getMovieById(Long.parseLong(id)));
+    }
+
+    @GetMapping("/movie/random")
+    public ResponseEntity<Movie> getRandomMovie() {
+        return ResponseEntity.status(HttpStatus.OK).body(apiService.getRandomMovie());
     }
 
     // UPDATE

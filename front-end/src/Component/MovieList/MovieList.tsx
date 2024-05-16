@@ -1,30 +1,18 @@
 import "./MovieList.scss";
 import MovieType from "../../types/MovieType";
-import Movie from "../Movie/Movie";
+import Movie from "../Movie/MovieUpdate";
 
 type MovieListProps = {
   movieArray: MovieType[];
-  //onSubmit(formData: MovieType): void;
-  submitChange(id: number): void;
+  submitChange(formData: MovieType): void;
   handleDelete(id: number): void;
 };
 
-const MovieList = ({
-  movieArray,
-  //onSubmit,
-  submitChange,
-  handleDelete,
-}: MovieListProps) => {
+const MovieList = ({ movieArray, submitChange, handleDelete }: MovieListProps) => {
   return (
     <div className="movie-list">
       {movieArray.map((movie) => (
-        <Movie
-          movie={movie}
-          key={movie.id}
-          //onSubmit={onSubmit}
-          submitChange={submitChange}
-          handleDelete={handleDelete}
-        />
+        <Movie movie={movie} key={movie.id} submitChange={submitChange} handleDelete={handleDelete} />
       ))}
     </div>
   );

@@ -1,2 +1,4 @@
-package com.example.API;public class Genre {
+package com.example.API;
+
+public class Genre {
 }
