@@ -60,12 +60,12 @@ public class ApiController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
     }
 
-    @PutMapping("/{movieId}/genre/{genreId}")
-    public ResponseEntity<Movie> assignGenreToMovie(@PathVariable Long movieId, @PathVariable Long genreId) {
-        Movie movieGenreAssociation = apiService.assignGenreToMovie(movieId, genreId);
-        Movie updatedMovie = apiService.getMovieById(movieId);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
-        }
+//    @PutMapping("/{movieId}/genre/{genreId}")
+//    public ResponseEntity<Movie> assignGenreToMovie(@PathVariable Long movieId, @PathVariable Long genreId) {
+//        Movie movieGenreAssociation = apiService.assignGenreToMovie(movieId, genreId);
+//        Movie updatedMovie = apiService.getMovieById(movieId);
+//        return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
+//        }
 
 
 

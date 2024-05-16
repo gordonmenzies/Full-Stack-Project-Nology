@@ -40,14 +40,14 @@ public class Movie {
         this.director = null;
         this.personalRating = 0;
         this.runTime = 200;
-        this.genres = null;
+        //this.genres = null;
     }
 
     public Movie(long id,String title,
                  int year,String genre,
                  String director,
                  int personalRating,
-                 int runTime, Set<Genre> genres) {
+                 int runTime) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -55,7 +55,7 @@ public class Movie {
         this.director = director;
         this.personalRating = personalRating;
         this.runTime = runTime;
-        this.genres = genres;
+        //this.genres = genres;
     }
 
     public long getId() {
@@ -95,9 +95,9 @@ public class Movie {
     }
 
     // break down the genre string and turn them into individual items and add them to the hash set
-    public void setGenre(Genre genre) {
-        this.genres.add(genre);
-    }
+//    public void setGenre(Genre genre) {
+//        this.genres.add(genre);
+//    }
 
 //    @Override
 //    public String toString() {

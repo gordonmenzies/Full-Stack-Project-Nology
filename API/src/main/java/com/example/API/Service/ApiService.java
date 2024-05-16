@@ -78,16 +78,16 @@ public class ApiService {
         return newMovie;
     }
 
-    public Movie assignGenreToMovie(Long movieId, long genreId) {
-        System.out.println("reach 1");
-        Movie movie = movieRepo.findById(movieId).get();
-        Genre genre = genreRepo.findById(genreId).get();
-        System.out.println("reach 2");
-        System.out.println("reach 3");
-        movie.setGenre(genre);
-        System.out.println("reach 4");
-        return movieRepo.save(movie);
-    }
+//    public Movie assignGenreToMovie(Long movieId, long genreId) {
+//        System.out.println("reach 1");
+//        Movie movie = movieRepo.findById(movieId).get();
+//        Genre genre = genreRepo.findById(genreId).get();
+//        System.out.println("reach 2");
+//        System.out.println("reach 3");
+//        movie.setGenre(genre);
+//        System.out.println("reach 4");
+//        return movieRepo.save(movie);
+//    }
 
     // DELETE
     @Transactional
