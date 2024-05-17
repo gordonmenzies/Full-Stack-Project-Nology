@@ -57,6 +57,7 @@ public class ApiController {
     @PutMapping("/movie/{id}")
     public ResponseEntity<Movie> updatedMovie(@RequestBody Movie newMovie, @PathVariable long id) {
         Movie updatedMovie = apiService.updateMovie(newMovie,id);
+        System.out.println("reached");
         return ResponseEntity.status(HttpStatus.OK).body(updatedMovie);
     }
 

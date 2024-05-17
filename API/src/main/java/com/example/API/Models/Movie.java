@@ -28,8 +28,8 @@ public class Movie {
     private final String director;
     private final String genre;
     private final int year;
-    private final int personalRating;
-    private final int runTime;
+    private final String personalRating;
+    private final String runTime;
 
 
     public Movie() {
@@ -38,16 +38,16 @@ public class Movie {
         this.year = 0000;
         this.genre = null;
         this.director = null;
-        this.personalRating = 0;
-        this.runTime = 200;
+        this.personalRating = "0";
+        this.runTime = "200";
         this.genres = new HashSet<>();
     }
 
     public Movie(long id,String title,
                  int year,String genre,
                  String director,
-                 int personalRating,
-                 int runTime) {
+                 String personalRating,
+                 String runTime) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -70,11 +70,11 @@ public class Movie {
         return director;
     }
 
-    public int getPersonalRating() {
+    public String getPersonalRating() {
         return personalRating;
     }
 
-    public int getRunTime() {
+    public String getRunTime() {
         return runTime;
     }
 
@@ -99,12 +99,17 @@ public class Movie {
         this.genres.add(genre);
     }
 
-//    @Override
-//    public String toString() {
-//        return "Movie{" +
-//                "id='" + id + '\'' +
-//                ", description='" + description + '\'' +
-//                ", rating=" + rating +
-//                '}';
-//    }
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", genres=" + genres +
+                ", title='" + title + '\'' +
+                ", director='" + director + '\'' +
+                ", genre='" + genre + '\'' +
+                ", year=" + year +
+                ", personalRating='" + personalRating + '\'' +
+                ", runTime='" + runTime + '\'' +
+                '}';
+    }
 }

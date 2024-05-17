@@ -103,15 +103,15 @@ public class ApiService {
     }
 
 
-
     public List<Genre> convertStringToGenres(String genre) {
         List<Genre> wordsToAdd = new ArrayList<>();
         List<Genre> genreList = getGenres();
 
         if (genre != null) {
-            String[] words = genre.split(" ");
+            String[] words = genre.split(",");
 
             for (String word : words) {
+                word.trim();
                 if (containsStringInList(genreList, word)) {
                     wordsToAdd.add(new Genre(word));
                 }
@@ -120,8 +120,7 @@ public class ApiService {
         return wordsToAdd;
     }
 
-
-    // this needs to be checked
+    // check to see if the genre already exists and if so return false
     public boolean containsStringInList(List<Genre> list, String searchString) {
         for (Genre genre : list) {
             if (genre.getName() != null &! genre.getName().contains(searchString)) {
