@@ -29,7 +29,7 @@ public class ApiService {
             genreRepo.save(genre);
             // it only gets the id once it enters the database therefor it can't be searched by id
             System.out.println(movieRepo.findById(newMovie.getId()));
-            assignGenreToMovie(newMovie.getId(), genre.getId());
+            assignGenreToMovie(newMovie.getId(), genre.getId(), true);
         }
         return newMovie;
     }
@@ -87,6 +87,16 @@ public class ApiService {
         movie.setGenreList(genre);
         System.out.println("reach 4");
         return movieRepo.save(movie);
+    }
+
+    public void assignGenreToMovie(Long movieId, long genreId, boolean thing) {
+        System.out.println("reach 1");
+        Movie movie = movieRepo.findById(movieId).get();
+        Genre genre = genreRepo.findById(genreId).get();
+        System.out.println("reach 2");
+        System.out.println("reach 3");
+        movie.setGenreList(genre);
+        System.out.println("reach 4");
     }
 
     // DELETE
