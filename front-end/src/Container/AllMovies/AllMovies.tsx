@@ -9,24 +9,8 @@ type AllMovies = {
 };
 
 const AllMovies = () => {
-  const [movieArray, setMovieArray] = useState<MovieType[]>([]);
   const [count, setCount] = useState<number>(0);
   const [genreArray, setGenreArray] = useState<GenreType[]>([]);
-
-  const getMovies = async (): Promise<void> => {
-    try {
-      let url = "http://localhost:8080/movie";
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("failed to fetch data");
-      }
-      const movieData = await response.json();
-      setMovieArray(movieData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const getGenres = async (): Promise<void> => {
     try {
@@ -41,6 +25,7 @@ const AllMovies = () => {
     } catch (error) {
       console.log(error);
     }
+    console.log("genre call", genreArray);
   };
 
   const handleDelete = (id: number) => {
@@ -81,14 +66,9 @@ const AllMovies = () => {
     setCount(count + 1);
   };
 
-  useEffect(() => {
-    getMovies();
-    getGenres();
-  }, [count]);
-
   return (
     <div className="homePage">
-      <MovieList genreArray={genreArray} movieArray={movieArray} submitChange={submitChange} handleDelete={handleDelete} />
+      <MovieList genreArray={genreArray} submitChange={submitChange} handleDelete={handleDelete} />
     </div>
   );
 };

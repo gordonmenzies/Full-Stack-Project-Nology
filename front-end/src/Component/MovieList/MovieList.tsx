@@ -5,22 +5,37 @@ import Movie from "../Movie/MovieUpdate";
 import GenreType from "../../types/GenreType";
 
 type MovieListProps = {
-  movieArray: MovieType[];
   genreArray: GenreType[];
   submitChange(formData: MovieType): void;
   handleDelete(id: number): void;
 };
 
-const MovieList = ({ genreArray, movieArray, submitChange, handleDelete }: MovieListProps) => {
-  const [movieList, setMovieList] = useState<MovieType[]>(movieArray);
+const MovieList = ({ genreArray, submitChange, handleDelete }: MovieListProps) => {
+  const [movieList, setMovieList] = useState<MovieType[]>();
+  const [movieArray, setMovieArray] = useState<MovieType[]>([]);
 
-  console.log(movieList);
+  const getMovies = async (): Promise<void> => {
+    try {
+      let url = "http://localhost:8080/movie";
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("failed to fetch data");
+      }
+      const movieData = await response.json();
+      setMovieArray(movieData);
+      setMovieList(movieData);
+      console.log("movie Data", movieData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // set state array with only elements that fit the search terms
   const searchDirector = (event: React.FormEvent<HTMLInputElement>) => {
     const value = event.currentTarget.value.toLowerCase();
     console.log(value);
-    const searchedGroup = movieArray.filter((movie) => {
+    const searchedGroup = movieList?.filter((movie) => {
       if (movie.director) {
         return movie.director.toLowerCase().includes(value);
       }
@@ -35,7 +50,7 @@ const MovieList = ({ genreArray, movieArray, submitChange, handleDelete }: Movie
   const searchGenre = (event: React.FormEvent<HTMLSelectElement>) => {
     const value = event.currentTarget.value;
     console.log(value);
-    const searchedGroup = movieList.filter((movie) => movie.genreList.some((genres) => genres.name.includes(value)));
+    const searchedGroup = movieList?.filter((movie) => movie.genreList.some((genres) => genres.name.includes(value)));
     console.log(searchedGroup);
     setMovieList(searchedGroup);
     if (value === "") {
@@ -44,8 +59,7 @@ const MovieList = ({ genreArray, movieArray, submitChange, handleDelete }: Movie
   };
 
   useEffect(() => {
-    console.log(movieArray);
-    setMovieList(movieArray);
+    getMovies();
   }, []);
 
   return (
@@ -62,7 +76,7 @@ const MovieList = ({ genreArray, movieArray, submitChange, handleDelete }: Movie
         </select>
       </div>
       <div className="movie-list">
-        {movieList.map((movie) => (
+        {movieList?.map((movie) => (
           <Movie movie={movie} key={movie.id} submitChange={submitChange} handleDelete={handleDelete} />
         ))}
       </div>
