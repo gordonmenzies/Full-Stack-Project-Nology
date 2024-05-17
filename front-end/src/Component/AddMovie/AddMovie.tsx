@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import MovieType from "../../types/MovieType";
 
-//ADD MOVIE NEEDS TO RECEIVE A MOVIE AND PASS IT TO THE LABELS SO A MOVIE CAN BE UPDATED
 type AddMovieProp = {
   movie: MovieType;
 };
@@ -54,7 +53,6 @@ const AddMovie = ({ movie: movieObject }: AddMovieProp) => {
 
     if (response.ok) {
       alert("movie added");
-      const movie = await response.json();
     } else {
       const message = await response.text();
       alert(message);

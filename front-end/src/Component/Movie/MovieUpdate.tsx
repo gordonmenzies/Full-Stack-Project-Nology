@@ -1,4 +1,5 @@
 import MovieType from "../../types/MovieType";
+import MovieUpdate from "../../types/MovieUpdate";
 import { useState } from "react";
 import "./Movie.scss";
 
@@ -10,7 +11,7 @@ type MovieUpdateProp = {
 
 const Movie = ({ movie, submitChange, handleDelete }: MovieUpdateProp) => {
   const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState<MovieType>({
+  const [formData, setFormData] = useState<MovieUpdate>({
     id: movie.id,
     title: movie.title,
     director: movie.director,
@@ -34,7 +35,6 @@ const Movie = ({ movie, submitChange, handleDelete }: MovieUpdateProp) => {
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    console.log("wagwan");
     e.preventDefault();
     submitChange(formData);
     setShowForm(false);

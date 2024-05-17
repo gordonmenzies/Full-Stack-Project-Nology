@@ -1,13 +1,4 @@
-import React, { useState, useEffect } from "react";
-import MovieType from "../../types/MovieType";
-import Nav from "../../Component/Nav/Nav";
-
-//ADD MOVIE NEEDS TO RECEIVE A MOVIE AND PASS IT TO THE LABELS SO A MOVIE CAN BE UPDATED
-type AddMovieProp = {
-  movie: MovieType;
-};
-
-//{ movie: movieObject }: AddMovieProp
+import React, { useState } from "react";
 
 const AddMovie = () => {
   const [formData, setFormData] = useState<MovieProp>({
@@ -18,8 +9,6 @@ const AddMovie = () => {
     personalRating: "",
     runTime: "",
   });
-
-  //   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
