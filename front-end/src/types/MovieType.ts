@@ -1,3 +1,5 @@
+import GenreType from "./GenreType";
+
 type MovieType = {
   id: number;
   title: string;
@@ -6,6 +8,7 @@ type MovieType = {
   year: string;
   personalRating: string;
   runTime: string;
+  genreList: GenreType[];
 
   // id: number;
   // title: string;

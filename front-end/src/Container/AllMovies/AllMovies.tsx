@@ -1,5 +1,6 @@
 import MovieList from "../../Component/MovieList/MovieList";
 import MovieType from "../../types/MovieType";
+import GenreType from "../../types/GenreType";
 import { useState, useEffect } from "react";
 
 // takes a movie array
@@ -10,6 +11,7 @@ type AllMovies = {
 const AllMovies = () => {
   const [movieArray, setMovieArray] = useState<MovieType[]>([]);
   const [count, setCount] = useState<number>(0);
+  const [genreArray, setGenreArray] = useState<GenreType[]>([]);
 
   const getMovies = async (): Promise<void> => {
     try {
@@ -22,7 +24,22 @@ const AllMovies = () => {
       const movieData = await response.json();
       setMovieArray(movieData);
     } catch (error) {
-    } finally {
+      console.log(error);
+    }
+  };
+
+  const getGenres = async (): Promise<void> => {
+    try {
+      let url = "http://localhost:8080/genres";
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("failed to fetch data");
+      }
+      const genreData = await response.json();
+      setGenreArray(genreData);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -65,13 +82,13 @@ const AllMovies = () => {
   };
 
   useEffect(() => {
-    console.log("run this");
     getMovies();
+    getGenres();
   }, [count]);
 
   return (
     <div className="homePage">
-      <MovieList movieArray={movieArray} submitChange={submitChange} handleDelete={handleDelete} />
+      <MovieList genreArray={genreArray} movieArray={movieArray} submitChange={submitChange} handleDelete={handleDelete} />
     </div>
   );
 };

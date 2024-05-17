@@ -1,0 +1,38 @@
+[
+  {
+    "name": "action"
+  },
+  {
+    "name": "drama"
+  },
+  {
+    "name": "comedy"
+  },
+  {
+    "name": "adventure"
+  },
+  {
+    "name": "horror"
+  },
+  {
+    "name": "biopic"
+  },
+  {
+    "name": "sci-fi"
+  },
+  {
+    "name": "documentary"
+  },
+  {
+    "name": "noir"
+  },
+  {
+    "name": "crime-story"
+  },
+  {
+    "name": "true-story"
+  },
+  {
+    "name": "british"
+  }
+]

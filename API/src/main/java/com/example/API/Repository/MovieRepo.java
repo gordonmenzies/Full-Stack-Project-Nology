@@ -1,9 +1,9 @@
 package com.example.API.Repository;
 
-import com.example.API.Movie;
+import com.example.API.Models.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ApiRepo extends JpaRepository<Movie,Integer> {
+public interface MovieRepo extends JpaRepository<Movie,Long> {
 
     // DELETE
     void deleteMovieById(long id);
