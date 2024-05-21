@@ -2,11 +2,9 @@ package com.example.API.Models;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
 @Table (name = "completeMovies")
-public class ImdbModel {
+public class utility {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,5 +135,4 @@ public class ImdbModel {
     public void setYear(int year) {
         this.releaseYear = year;
     }
-
 }
